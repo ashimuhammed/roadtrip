@@ -6,6 +6,7 @@ import { KERALA_ROUTES } from "@/data/routes";
 import RouteMap from "@/components/RouteMap";
 import ItineraryTimeline from "@/components/ItineraryTimeline";
 import StopCard from "@/components/StopCard";
+import CustomizeWithAiButton from "@/components/CustomizeWithAiButton";
 import { calculateEstimatedFuel } from "@/lib/utils";
 import {
   Clock,
@@ -174,15 +175,22 @@ export default function RouteDetailPage({ params }: PageProps) {
             </a>
           </div>
 
-          <a
-            href={`https://www.google.com/maps/dir/${route.stops.map(s => `${s.coordinates.lat},${s.coordinates.lng}`).join("/")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex-shrink-0"
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Launch Route GPS</span>
-          </a>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <CustomizeWithAiButton
+              routeTitle={route.title}
+              durationDays={route.durationDays}
+            />
+
+            <a
+              href={`https://www.google.com/maps/dir/${route.stops.map(s => `${s.coordinates.lat},${s.coordinates.lng}`).join("/")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold uppercase tracking-wider transition-all shadow-sm border border-zinc-700"
+            >
+              <Compass className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Launch GPS</span>
+            </a>
+          </div>
         </div>
 
         {/* Route Overview & Practical Info */}

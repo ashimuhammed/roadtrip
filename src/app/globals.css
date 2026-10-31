@@ -34,6 +34,7 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
+    --font-outfit: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
   .dark {

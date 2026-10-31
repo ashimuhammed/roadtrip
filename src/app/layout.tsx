@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import AiAssistantGlobalProvider from "@/components/AiAssistantGlobalProvider";
 import Link from "next/link";
 import { Compass, Shield, PhoneCall, Heart, Navigation } from "lucide-react";
 import { KERALA_ROUTES } from "@/data/routes";
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Kerala Roadtrips | Scenic Drives, Mountain Ghats & Coastal Trails",
@@ -32,13 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en">
       <body className="min-h-screen flex flex-col font-sans bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
-        <Navbar />
-        <main className="flex-1">{children}</main>
+        <AiAssistantGlobalProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
 
-        {/* Global Travel Footer */}
-        <footer className="bg-zinc-900 text-zinc-300 border-t border-zinc-800 pt-16 pb-12">
+          {/* Global Travel Footer */}
+          <footer className="bg-zinc-900 text-zinc-300 border-t border-zinc-800 pt-16 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-zinc-800">
               {/* Brand Column */}
@@ -120,6 +115,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        </AiAssistantGlobalProvider>
       </body>
     </html>
   );

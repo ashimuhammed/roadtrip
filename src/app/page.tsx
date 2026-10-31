@@ -6,6 +6,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { KERALA_ROUTES, KERALA_TRAVEL_TIPS } from "@/data/routes";
 import RouteCard from "@/components/RouteCard";
+import ScheduleTripSection from "@/components/ScheduleTripSection";
+import { triggerAiAssistant } from "@/components/AiAssistantGlobalProvider";
 
 const MasterKeralaMap = dynamic(() => import("@/components/MasterKeralaMap"), {
   ssr: false,
@@ -39,7 +41,8 @@ import {
   SlidersHorizontal,
   ChevronRight,
   Search,
-  Users
+  Users,
+  Bot
 } from "lucide-react";
 
 export default function HomePage() {
@@ -147,6 +150,34 @@ export default function HomePage() {
           <p className="max-w-3xl mx-auto text-base sm:text-lg text-zinc-300 font-normal leading-relaxed">
             From mist-swirled tea hairpin passes and roaring jungle falls to sun-drenched cliff beaches and below-sea-level backwaters. Day-by-day itineraries with tested drive times and local foodie stops.
           </p>
+
+          {/* Quick Action Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+            <button
+              onClick={() => triggerAiAssistant()}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/30 hover:scale-105 active:scale-95 transition-all"
+            >
+              <Bot className="w-4 h-4 text-emerald-300 animate-pulse" />
+              <span>Schedule Trip with AI Assistant</span>
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            </button>
+
+            <a
+              href="#schedule-trip-ai"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 text-zinc-200 font-bold text-xs uppercase tracking-wider transition-all hover:scale-105"
+            >
+              <Calendar className="w-4 h-4 text-emerald-400" />
+              <span>Open Schedule Mode</span>
+            </a>
+
+            <a
+              href="#kerala-map"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5 text-teal-400" />
+              <span>Interactive Atlas</span>
+            </a>
+          </div>
 
           {/* 1-Click Interactive Trip Finder Box */}
           <div id="route-finder" className="max-w-3xl mx-auto mt-6 p-4 sm:p-5 rounded-3xl bg-zinc-900/90 border border-zinc-700/80 backdrop-blur-xl shadow-2xl text-left space-y-4">
@@ -275,6 +306,11 @@ export default function HomePage() {
       <section id="kerala-map" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         <MasterKeralaMap />
       </section>
+
+      {/* AI Schedule Trip Mode Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScheduleTripSection onOpenFullModal={(prompt) => triggerAiAssistant(prompt)} />
+      </div>
 
       {/* Featured Routes Section */}
       <section id="routes" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
